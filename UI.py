@@ -44,23 +44,45 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 mainMenu.blit(background, (0,0))
 
 # Camera Icon
-cameraRect = pygame.Rect(10, HEIGHT - 110, 100, 100)
-cameraIcon = pygame.image.load("assets/betterCamera.png")
-cameraIcon = pygame.transform.scale(cameraIcon, (100, 100))
-mainMenu.blit(cameraIcon, (cameraRect))
+# cameraRect = pygame.Rect(10, HEIGHT - 110, 100, 100)
+# cameraIcon = pygame.image.load("assets/betterCamera.png")
+# cameraIcon = pygame.transform.scale(cameraIcon, (100, 100))
+# mainMenu.blit(cameraIcon, (cameraRect))
 
 
 # Github Icon
-githubIcon = pygame.image.load("assets/github.png")
-githubIcon = pygame.transform.scale(githubIcon, (30, 30))
-githubRect = pygame.Rect(WIDTH - 40, HEIGHT - 40, 30, 30)
-mainMenu.blit(githubIcon, (githubRect))
+# githubIcon = pygame.image.load("assets/github.png")
+# githubIcon = pygame.transform.scale(githubIcon, (30, 30))
+# githubRect = pygame.Rect(WIDTH - 40, HEIGHT - 40, 30, 30)
+# mainMenu.blit(githubIcon, (githubRect))
+
+# Button 1
+button1Rect = pygame.Rect(0, 150, 450, 100)
+button1Img = pygame.image.load("assets/button1b.png")
+button1Img = pygame.transform.scale(button1Img, (450, 100))
+mainMenu.blit(button1Img, (button1Rect))
+
+# Button 2
+button2Rect = pygame.Rect(510, 300, 450, 100)
+button2Img = pygame.image.load("assets/button3.png")
+button2Img = pygame.transform.scale(button2Img, (450, 100))
+mainMenu.blit(button2Img, (button2Rect))
+
+# Button 3
+button3Rect = pygame.Rect(0, 450, 450, 100)
+button3Img = pygame.image.load("assets/button2a.png")
+button3Img = pygame.transform.scale(button3Img, (450, 100))
+mainMenu.blit(button3Img, (button3Rect))
+
 
 
 
 
 # Camera on/off flag
 camOn = False
+selected = "menu"
+
+
 
 # Main loop
 running = True
