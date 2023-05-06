@@ -34,7 +34,7 @@ mainMenu.fill((255, 255, 255))
 # Font
 sunnyFontS = pygame.font.Font("assets/SunnySunday.ttf", 12)
 sunnyFontM = pygame.font.Font("assets/SunnySunday.ttf", 24)
-sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 36)
+sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 56)
 
 
 # Background
@@ -57,29 +57,38 @@ mainMenu.blit(background, (0,0))
 # mainMenu.blit(githubIcon, (githubRect))
 
 # Button 1
-button1Rect = pygame.Rect(0, 150, 450, 100)
+button1Rect = pygame.Rect(0, 150, 550, 100)
 button1Img = pygame.image.load("assets/button1b.png")
-button1Img = pygame.transform.scale(button1Img, (450, 100))
+button1Img = pygame.transform.scale(button1Img, (550, 100))
 mainMenu.blit(button1Img, (button1Rect))
 
+
 # Button 2
-button2Rect = pygame.Rect(510, 300, 450, 100)
+button2Rect = pygame.Rect(410, 300, 550, 100)
 button2Img = pygame.image.load("assets/button3.png")
-button2Img = pygame.transform.scale(button2Img, (450, 100))
+button2Img = pygame.transform.scale(button2Img, (550, 100))
 mainMenu.blit(button2Img, (button2Rect))
+cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
+cameraTextRect = cameraText.get_rect()
+cameraTextRect.center = (550, 350)
+mainMenu.blit(cameraText, cameraTextRect)
 
 # Button 3
-button3Rect = pygame.Rect(0, 450, 450, 100)
+button3Rect = pygame.Rect(0, 450, 550, 100)
 button3Img = pygame.image.load("assets/button2a.png")
-button3Img = pygame.transform.scale(button3Img, (450, 100))
+button3Img = pygame.transform.scale(button3Img, (550, 100))
 mainMenu.blit(button3Img, (button3Rect))
 
 
+# Info page
+infoPage = pygame.Surface((WIDTH, HEIGHT))
+infoPage.blit(background, (0,0))
 
 
 
-# Camera on/off flag
-camOn = False
+
+# # Camera on/off flag
+# camOn = False
 selected = "menu"
 
 
@@ -92,23 +101,36 @@ while running:
             sys.exit()
         if evt.type == pygame.MOUSEBUTTONDOWN:
             if button2Rect.collidepoint(evt.pos):
-                camOn = True
-            if githubRect.collidepoint(evt.pos):
-                if camOn == False:
-                    webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
+                selected = "camera"
+            # if githubRect.collidepoint(evt.pos):
+            #     if camOn == False:
+            #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
 
         if evt.type == pygame.KEYDOWN:
             if evt.key == pygame.K_ESCAPE:
-                camOn = False
+                selected = "menu"
             if evt.key == pygame.K_g:
                 webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
             if evt.key == pygame.K_c:
-                camOn = not camOn
+                if selected != "camera":
+                    selected = "camera"
+                else:
+                    selected = "menu"
+
     
-    screen.blit(mainMenu, (0,0))
 
 
-    if camOn:
+
+
+    if selected == "menu":
+
+        screen.blit(mainMenu, (0,0))
+
+    # if selected == "info":
+
+
+
+    if selected == "camera":
         screen.blit(img, (0,0))
         img = webcam.get_image()
         img = pygame.transform.flip(img, True, False)
