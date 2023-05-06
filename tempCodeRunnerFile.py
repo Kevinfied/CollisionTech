@@ -1,0 +1,1 @@
+mainMenu.blit(cameraIcon, (cameraRect))
