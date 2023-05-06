@@ -30,17 +30,27 @@ screen = pygame.display.set_mode( ( WIDTH, HEIGHT) )
 
 mainMenu = pygame.Surface((WIDTH, HEIGHT))
 mainMenu.fill((255, 255, 255))
+
+# Background
+
+background = pygame.image.load("assets/background.png")
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+mainMenu.blit(background, (0,0))
+
 # Camera Icon
 cameraRect = pygame.Rect(10, HEIGHT - 110, 100, 100)
-cameraIcon = pygame.image.load("assets/cameraIcon.png")
+cameraIcon = pygame.image.load("assets/betterCamera.png")
 cameraIcon = pygame.transform.scale(cameraIcon, (100, 100))
 mainMenu.blit(cameraIcon, (cameraRect))
+
 
 # Github Icon
 githubIcon = pygame.image.load("assets/github.png")
 githubIcon = pygame.transform.scale(githubIcon, (30, 30))
 githubRect = pygame.Rect(WIDTH - 40, HEIGHT - 40, 30, 30)
 mainMenu.blit(githubIcon, (githubRect))
+
+
 
 
 # Camera on/off flag
@@ -77,7 +87,8 @@ while running:
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
 
     pygame.display.flip()
-    
+
+
 
 
 
