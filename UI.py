@@ -91,7 +91,7 @@ while running:
         if evt.type == pygame.QUIT:
             sys.exit()
         if evt.type == pygame.MOUSEBUTTONDOWN:
-            if cameraRect.collidepoint(evt.pos):
+            if button2Rect.collidepoint(evt.pos):
                 camOn = True
             if githubRect.collidepoint(evt.pos):
                 if camOn == False:
