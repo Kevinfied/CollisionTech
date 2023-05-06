@@ -8,12 +8,13 @@ import pygame.image
 import sys
 import pygame
 
-# Camera initialization
+# initialization
 pygame.camera.init()
+pygame.font.init()
+
 
 cameraList = pygame.camera.list_cameras()
-webcam = pygame.camera.Camera(cameraList[1])
-
+webcam = pygame.camera.Camera(cameraList[2])
 webcam.start()
 
 # grab first frame
