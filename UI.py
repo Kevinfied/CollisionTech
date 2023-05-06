@@ -33,7 +33,7 @@ mainMenu.fill((255, 255, 255))
 
 # Background
 
-background = pygame.image.load("assets/background.png")
+background = pygame.image.load("assets/background2.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 mainMenu.blit(background, (0,0))
 
