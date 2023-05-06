@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
-verySecureDatabase = {}
+verySecureDatabase = []
 
 @app.route('/', methods=['GET'])
 def test():
@@ -11,7 +11,6 @@ def test():
 def test3():
     global verySecureDatabase
     requestData = request.form
-    print(requestData)
     verySecureDatabase.append(requestData)
 
 @app.route('/base', methods=['GET'])
