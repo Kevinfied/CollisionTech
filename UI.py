@@ -16,7 +16,7 @@ pygame.font.init()
 
 
 cameraList = pygame.camera.list_cameras()
-webcam = pygame.camera.Camera(cameraList[2])
+webcam = pygame.camera.Camera(cameraList[1])
 webcam.start()
 
 # grab first frame
