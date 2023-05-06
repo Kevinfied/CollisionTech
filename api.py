@@ -12,10 +12,13 @@ def test3():
     global verySecureDatabase
     requestData = request.form
     verySecureDatabase.append(requestData)
+    return "this worked"
+
 
 @app.route('/base', methods=['GET'])
 def test4():
     global verySecureDatabase
+    print("this ran")
     return verySecureDatabase
 
 if __name__ == '__main__':
