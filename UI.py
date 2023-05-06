@@ -31,6 +31,12 @@ screen = pygame.display.set_mode( ( WIDTH, HEIGHT) )
 mainMenu = pygame.Surface((WIDTH, HEIGHT))
 mainMenu.fill((255, 255, 255))
 
+# Font
+sunnyFontS = pygame.font.Font("assets/SunnySunday.ttf", 12)
+sunnyFontM = pygame.font.Font("assets/SunnySunday.ttf", 24)
+sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 36)
+
+
 # Background
 
 background = pygame.image.load("assets/background2.png")
