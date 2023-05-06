@@ -10,8 +10,8 @@ def test():
 @app.route('/base', methods=['POST'])
 def test3():
     global verySecureDatabase
-    requestData = request.get_jason()
-    verySecureDatabase = {}
+    requestData = request.form
+    print(requestData)
     verySecureDatabase.append(requestData)
 
 @app.route('/base', methods=['GET'])

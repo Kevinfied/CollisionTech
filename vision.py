@@ -2,6 +2,7 @@
 import cv2
 import numpy
 import requests
+import json
 
 #define a video capture object
 vid = cv2.VideoCapture(1, cv2.CAP_DSHOW)
@@ -85,7 +86,7 @@ while(True):
 		
 	if (points[0] and points[1]):
 		cv2.line(frame, points[0], points[1], (255, 0, 0), thickness=3)
-		requests.post("http://127.0.0.1:8000/", json = {points[0] : points[1]})
+		requests.post("http://127.0.0.1:8000/", json = {points[0][0] : points[0][1], points[1][0] : points[1][1]})
  
 	cv2.imshow('frame', frame)
 	cv2.imshow('thresh', thresh)
