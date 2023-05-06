@@ -22,8 +22,8 @@ webcam.start()
 # grab first frame
 img = webcam.get_image()
 
-WIDTH = (img.get_width())*2
-HEIGHT = (img.get_height())*2
+WIDTH = 960
+HEIGHT = 720
 
 
 screen = pygame.display.set_mode( ( WIDTH, HEIGHT) )
@@ -45,7 +45,6 @@ mainMenu.blit(githubIcon, (githubRect))
 
 # Camera on/off flag
 camOn = False
-
 
 # Main loop
 running = True
@@ -77,4 +76,10 @@ while running:
         img = pygame.transform.flip(img, True, False)
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
 
-    pygame.display.flip()  
+    pygame.display.flip()
+    
+
+
+
+
+
