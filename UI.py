@@ -42,6 +42,7 @@ background = pygame.image.load("assets/background2.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
 
+
 def setup():
     # Background
     global background
@@ -104,6 +105,17 @@ def setup():
 # githubIcon = pygame.transform.scale(githubIcon, (30, 30))
 # githubRect = pygame.Rect(WIDTH - 40, HEIGHT - 40, 30, 30)
 # mainMenu.blit(githubIcon, (githubRect))
+
+
+# Button area captures
+setup()
+button1Area = pygame.Surface((button1X, button1Y, button1W+100, button1H))
+button2Area = pygame.Surface((button2X - 100, button2Y, button2W+100, button2H))
+button3Area = pygame.Surface((button3X, button3Y, button3W+100, button3H))
+button1Cap = button1Area.copy()
+button2Cap = button2Area.copy()
+button3Cap = button3Area.copy()
+
 
 
 # Info page
