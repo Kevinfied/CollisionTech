@@ -12,10 +12,8 @@ import vision
 # initialization
 pygame.font.init()
 
-
 WIDTH = 960
 HEIGHT = 720
-
 
 screen = pygame.display.set_mode( ( WIDTH, HEIGHT) )
 
@@ -69,8 +67,6 @@ instructionsText = sunnyFontL.render("INTRODUCTION", True, (77, 84, 114))
 instructionsTextRect = instructionsText.get_rect()
 instructionsTextRect.center = (instructionsX, 245)
 mainMenu.blit(instructionsText, instructionsTextRect)
-
-
 
 # Button 2
 button2X, button2Y = 410, 385
@@ -329,11 +325,6 @@ while running:
         button1Hover = False
         button2Hover = False
         button3Hover = False
-
-
-            
-
-
       
 
     # if selected == "info":

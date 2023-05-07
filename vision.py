@@ -35,6 +35,9 @@ def changeSaftey(*args):
 	safeRadius = int(args[0]*1.3)
 
 def run():
+
+	mixer.init()
+
 	global counter 
 	global minA 
 	global maxA
@@ -59,6 +62,8 @@ def run():
 	cv2.createTrackbar("safe radius", "Parameters", 1, 100, changeSaftey)
 	cv2.setTrackbarPos("safe radius", "Parameters", 60)
 
+	sound = mixer.Sound("beep-02.mp3")
+	voice = mixer.Channel(5)
 
 	while(True):
 
@@ -75,11 +80,11 @@ def run():
 		contours, heierchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 		#converts the image to hue saturation value colour sustem cuz easier to work with
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-		lower_bound = numpy.array([0,0,0])
-		upper_bound = numpy.array([180,255,255])
+		# hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+		# lower_bound = numpy.array([0,0,0])
+		# upper_bound = numpy.array([180,255,255])
 
-		mask = cv2.inRange(hsv, lower_bound, upper_bound)
+		# mask = cv2.inRange(hsv, lower_bound, upper_bound)
 
 		#This list stores two coordinates to create a vector for the direction the robot is facing
 		#triangle for direction, square for other coordinate
@@ -124,22 +129,19 @@ def run():
 			# cv2.circle(frame, (midPointX, midPointY), 10, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
 			cv2.circle(frame, (midPointX, midPointY), safeRadius, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
 			# print(len(obsticles))
-			lastDistSqr = 1000
-			minDistSqr = 12345
-			freq = 800 
-			margin = 100
-			dur=50
+			# lastDistSqr = 1000
+			# minDistSqr = 12345
+			# freq = 800 
+			# margin = 100
+			# dur=50
 			for o in obsticles:
 				distSqr= (midPointX-int(o[0]))**2 + (midPointY-int(o[1]))**2 
 				safeDistSqr = (safeRadius + o[2])**2
-				if distSqr  < safeDistSqr + margin**2:
-					freq = 800
+				if distSqr  < safeDistSqr:
 					if distSqr  < safeDistSqr:
 						cv2.circle(frame, (midPointX, midPointY), safeRadius, (0, 0, 255), thickness=5, lineType = cv2.LINE_AA)
-						freq = 1000
-					winsound.Beep(freq,dur)
-				minDistSqr = min(distSqr,lastDistSqr)
-				lastDistSqr = distSqr
+						if not voice.get_busy():
+							voice.play(sound)
 			# print(round(minDistSqr,2))
 					
 			# requests.post("http://127.0.0.1:8000/base", json = {"base" : {points[1][0] : points[1][1]}, "tip" : {points[0][0] : points[0][1]}})
