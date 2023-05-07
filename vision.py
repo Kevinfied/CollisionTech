@@ -4,6 +4,8 @@ import numpy
 import requests
 import json
 from flask import jsonify
+from pygame import *
+import winsound
 
 #define a video capture object
 vid = cv2.VideoCapture(1, cv2.CAP_DSHOW)
@@ -12,6 +14,8 @@ counter = 0
 minA = 0
 maxA = 0
 errorMar = 0
+safeRadius = 0
+obsticles = []
 
 def th(*args):
 	global counter
@@ -29,17 +33,23 @@ def errorMargin(*args):
 	global errorMar
 	errorMar = args[0]/10
 
+def changeSaftey(*args):
+	global safeRadius
+	safeRadius = int(args[0]*1.3)
+
 #PARAMETERS FOR DIFFERENT LIGHTING CONDITIONS
 cv2.namedWindow("Parameters")
 cv2.resizeWindow("Parameters", 640, 240)
 cv2.createTrackbar("Threshold", "Parameters", 0, 255, th)
-cv2.setTrackbarPos("Threshold", "Parameters", 180)
+cv2.setTrackbarPos("Threshold", "Parameters", 175)
 cv2.createTrackbar("minArea", "Parameters", 0, 300, minArea)
 cv2.setTrackbarPos("minArea", "Parameters", 7)
 cv2.createTrackbar("maxArea", "Parameters", 0, 300, maxArea)
 cv2.setTrackbarPos("maxArea", "Parameters", 300)
 cv2.createTrackbar("marginOfError", "Parameters", 0, 10, errorMargin)
 cv2.setTrackbarPos("marginOfError", "Parameters", 1)
+cv2.createTrackbar("safe radius", "Parameters", 1, 100, changeSaftey)
+cv2.setTrackbarPos("safe radius", "Parameters", 60)
 
 
 while(True):
@@ -67,6 +77,8 @@ while(True):
 	#triangle for direction, square for other coordinate
 	points = [0, 0]
 
+	obsticles = []
+			
 	for i, contour in enumerate(contours):
 		#continue here because it is detecting entire screen
 		if i == 0:
@@ -86,16 +98,43 @@ while(True):
 			cv2.circle(frame, (int(x)+int(w/2), int(y)+int(h/2)), 10, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
 			#base
 			if len(approx) == 4:
-				points[1] = (int(x)+int(w/2), int(y)+int(h/2))
+				if points[0] == 0:
+					points[0] = (int(x)+int(w/2), int(y)+int(h/2))
+				elif points[1] == 0:
+					points[1] = (int(x)+int(w/2), int(y)+int(h/2))
 			#tip
-			if len(approx) == 3:
-				points[0] = (int(x)+int(w/2), int(y)+int(h/2))
+			elif len(approx) == 3:
+				obsticles.append((int(x)+int(w/2), int(y)+int(h/2), h//2))
+				#points[0] = (int(x)+int(w/2), int(y)+int(h/2))
 		
 	if (points[0] and points[1]):
 		cv2.line(frame, points[0], points[1], (255, 0, 0), thickness=3)
+		midPointX = (points[0][0]+points[1][0])//2
+		midPointY = (points[0][1]+points[1][1])//2
+		# cv2.circle(frame, (midPointX, midPointY), 10, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
+		cv2.circle(frame, (midPointX, midPointY), safeRadius, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
+		# print(len(obsticles))
+		lastDistSqr = 1000
+		minDistSqr = 12345
+		freq = 800 
+		margin = 100
+		dur=50
+		for o in obsticles:
+			distSqr= (midPointX-int(o[0]))**2 + (midPointY-int(o[1]))**2 
+			safeDistSqr = (safeRadius + o[2])**2
+			if distSqr  < safeDistSqr + margin**2:
+				freq = 800
+				if distSqr  < safeDistSqr:
+					cv2.circle(frame, (midPointX, midPointY), safeRadius, (0, 0, 255), thickness=5, lineType = cv2.LINE_AA)
+					freq = 1000
+				winsound.Beep(freq,dur)
+			minDistSqr = min(distSqr,lastDistSqr)
+			lastDistSqr = distSqr
+		print(round(minDistSqr,2))
+				
 		# requests.post("http://127.0.0.1:8000/base", json = {"base" : {points[1][0] : points[1][1]}, "tip" : {points[0][0] : points[0][1]}})
 		#jsonify('{"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}}')
-		requests.post("http://127.0.0.1:8000/base", json = {"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}})
+		#requests.post("http://127.0.0.1:8000/base", json = {"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}})
  
 	cv2.imshow('frame', frame)
 	cv2.imshow('thresh', thresh)
