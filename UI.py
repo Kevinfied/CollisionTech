@@ -54,7 +54,7 @@ button3Area = mainMenu.subsurface((0, 575, 960, 100))
 # global background
 mainMenu.blit(background, (0,0))
 
-titleText = sunnyFontXL.render("Testing Technologies", True, (77, 84, 114))
+titleText = sunnyFontXL.render("COLLISION TECH", True, (77, 84, 114))
 titleTextRect = titleText.get_rect()
 titleTextRect.center = (WIDTH/2, 100)
 mainMenu.blit(titleText, titleTextRect)
