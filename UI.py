@@ -37,39 +37,60 @@ sunnyFontM = pygame.font.Font("assets/SunnySunday.ttf", 24)
 sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 56)
 
 # Background
+global background
 background = pygame.image.load("assets/background2.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-mainMenu.blit(background, (0,0))
-
-# Button 1
-button1X, button1Y = 0, 195
-button1W, button1H = 550, 100
-button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
-button1Img = pygame.image.load("assets/button1b.png")
-button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
-mainMenu.blit(button1Img, (button1Rect))
 
 
-# Button 2
-button2X, button2Y = 410, 385
-button2W, button2H = 550, 100
-button2Rect = pygame.Rect(button2X, button2Y, button2W, button2H)
-button2Img = pygame.image.load("assets/button3.png")
-button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
-mainMenu.blit(button2Img, (button2Rect))
-cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
-cameraTextRect = cameraText.get_rect()
-cameraTextRect.center = (550, 435)
-mainMenu.blit(cameraText, cameraTextRect)
+def setup():
+    # Background
+    global background
+    mainMenu.blit(background, (0,0))
 
-# Button 3
-button3X, button3Y = 0, 575
-button3W, button3H = 550, 100
+    global button2X, button2Y, button2W, button2H, button2Rect, button1X, button1Y, button1W, button1H, button1Rect, button3Rect, button3X, button3Y, button3W, button3H
+    # Button 1
+    button1X, button1Y = 0, 195
+    button1W, button1H = 550, 100
+    global button1Rect
+    button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
+    # button1Img = pygame.image.load("assets/button1b.png")
+    # button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
+    # mainMenu.blit(button1Img, (button1Rect))
+    pygame.draw.rect(mainMenu, (238, 225, 255), button1Rect, 50, 20)
 
-button3Rect = pygame.Rect(button3X, button3Y, button3W, button3H)
-button3Img = pygame.image.load("assets/button2a.png")
-button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
-mainMenu.blit(button3Img, (button3Rect))
+
+
+
+    # Button 2
+    button2X, button2Y = 410, 385
+    button2W, button2H = 550, 100
+    global button2Rect
+    button2Rect = pygame.Rect(button2X, button2Y, button2W, button2H)
+    # button2Img = pygame.image.load("assets/button3.png")
+    # button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
+    # mainMenu.blit(button2Img, (button2Rect))
+    pygame.draw.rect(mainMenu, (216, 246, 255), button2Rect, 50, 20)
+
+    global cameraText, cameraTextRect, cameraTextX, cameraTextY
+    cameraTextX, cameraTextY = 550, 435
+    cameraText = sunnyFontL.render("CAMERA!", True, (49, 109, 234))
+    cameraTextRect = cameraText.get_rect()
+    cameraTextRect.center = (cameraTextX, cameraTextY)
+    mainMenu.blit(cameraText, cameraTextRect)
+
+    # Button 3
+    
+
+    button3X, button3Y = 0, 575
+    button3W, button3H = 550, 100
+
+    button3Rect = pygame.Rect(button3X, button3Y, button3W, button3H)
+    # button3Img = pygame.image.load("assets/button2a.png")
+    # button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
+    # mainMenu.blit(button3Img, (button3Rect))
+    pygame.draw.rect(mainMenu, (227, 255, 230), button3Rect, 50, 20)
+
+    screen.blit(mainMenu, (0,0))
 
 # Camera Icon
 # cameraRect = pygame.Rect(10, HEIGHT - 110, 100, 100)
@@ -92,11 +113,14 @@ infoPage.blit(background, (0,0))
 
 
 
-# # Camera on/off flag
-# camOn = False
+# FLAGS
 selected = "menu"
+button1Hover = False
+button2Hover = False
+button3Hover = False
 
 
+# Crosshair for the camera mode
 def cursor(x, y):
     pygame.draw.line(screen, (255, 0, 0), (x-5, y), (x+5, y), 1)
     pygame.draw.line(screen, (255, 0, 0), (x, y - 5), (x, y + 5), 1)
@@ -110,14 +134,17 @@ while running:
         if evt.type == pygame.QUIT:
             sys.exit()
         if evt.type == pygame.MOUSEBUTTONDOWN:
-            if button2Rect.collidepoint(evt.pos):
-                selected = "camera"
-            # if githubRect.collidepoint(evt.pos):
-            #     if camOn == False:
-            #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
-            if button3Rect.collidepoint(evt.pos):
-                sys.exit()
+            if selected == "menu":
+                if button2Rect.collidepoint(evt.pos):
+                    selected = "camera"
+                # if githubRect.collidepoint(evt.pos):
+                #     if camOn == False:
+                #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
+                if button3Rect.collidepoint(evt.pos):
+                    sys.exit()
             
+
+
             if selected == "camera":
                 print(mx, my)
 
@@ -145,84 +172,40 @@ while running:
     if selected == "menu":
         pygame.mouse.set_visible(True)
         # Background
-        if not button2Rect.collidepoint(mx, my) and mb[0] == 0:
-            background = pygame.image.load("assets/background2.png")
-            background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-            mainMenu.blit(background, (0,0))
+        if button2Hover == False:
+            setup()
+        
 
 
-            # Button 1
-            button1X, button1Y = 0, 195
-            button1W, button1H = 550, 100
-
-            button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
-            button1Img = pygame.image.load("assets/button1b.png")
-            button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
-            mainMenu.blit(button1Img, (button1Rect))
-
-
-
-
-            screen.blit(mainMenu, (0,0))
-            # Button 2
-            button2X, button2Y = 410, 385
-            button2W, button2H = 550, 100
-            button2Rect = pygame.Rect(button2X, button2Y, button2W, button2H)
-            button2Img = pygame.image.load("assets/button3.png")
-            button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
-            mainMenu.blit(button2Img, (button2Rect))
-            cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
-            cameraTextRect = cameraText.get_rect()
-            cameraTextX, cameraTextY = 550, 435
-            cameraTextRect.center = (cameraTextX, cameraTextY)
-            mainMenu.blit(cameraText, cameraTextRect)
-
-            # Button 3
-            button3Rect = pygame.Rect(0, 575, 550, 100)
-            button3Img = pygame.image.load("assets/button2a.png")
-            button3Img = pygame.transform.scale(button3Img, (550, 100))
-            mainMenu.blit(button3Img, (button3Rect))
-
-            
-            screen.blit(mainMenu, (0,0))
+        button1Hover = False
+        button2Hover = False
+        button3Hover = False
 
         if button2Rect.collidepoint(mx, my):
             if mb[0] == 0:
+                button2Hover = True
                 while button2W < 600:
                     button2X -= 1
                     button2W += 1
                     cameraTextX -= 1
                     cameraTextRect.center = (cameraTextX, cameraTextY)
-                    button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
-                    mainMenu.blit(button2Img, (button2X, button2Y))
+                    # button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
+                    # mainMenu.blit(button2Img, (button2X, button2Y))
+                    pygame.draw.rect(mainMenu, (216, 246, 255), (button2X, button2Y, button2W, button2H), 50, 20)
                     mainMenu.blit(cameraText, cameraTextRect)
                     screen.blit(mainMenu, (0,0))
                     pygame.display.flip()
                     pygame.time.wait(2)
 
-        # if not button1Rect.collidepoint(mx, my) and mb[0] == 0:
-        #     background = pygame.image.load("assets/background2.png")
-        #     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
-        #     mainMenu.blit(background, (0,0))
-        #     # Button 1
-        #     button1X, button1Y = 0, 195
-        #     button1W, button1H = 550, 100
-
-        #     button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
-        #     button1Img = pygame.image.load("assets/button1b.png")
-        #     button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
-        #     mainMenu.blit(button1Img, (button1Rect))
-
-
-        #     screen.blit(mainMenu, (0,0))
 
         if button1Rect.collidepoint(mx, my):
+            button1Hover = True
             if mb[0] == 0:
                 while button1W < 600:
-                    button1X -= 1
                     button1W += 1
-                    button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
-                    mainMenu.blit(button1Img, (button1X, button1Y))
+                    # button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
+                    # mainMenu.blit(button1Img, (button1X, button1Y))
+                    pygame.draw.rect(mainMenu, (238, 225, 255), (button1X, button1Y, button1W, button1H), 50, 20)
                     screen.blit(mainMenu, (0,0))
                     pygame.display.flip()
                     pygame.time.wait(2)
