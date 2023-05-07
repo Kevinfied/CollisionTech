@@ -3,6 +3,7 @@ import cv2
 import numpy
 import requests
 import json
+from flask import jsonify
 
 #define a video capture object
 vid = cv2.VideoCapture(1, cv2.CAP_DSHOW)
@@ -32,9 +33,13 @@ def errorMargin(*args):
 cv2.namedWindow("Parameters")
 cv2.resizeWindow("Parameters", 640, 240)
 cv2.createTrackbar("Threshold", "Parameters", 0, 255, th)
+cv2.setTrackbarPos("Threshold", "Parameters", 180)
 cv2.createTrackbar("minArea", "Parameters", 0, 300, minArea)
+cv2.setTrackbarPos("minArea", "Parameters", 7)
 cv2.createTrackbar("maxArea", "Parameters", 0, 300, maxArea)
+cv2.setTrackbarPos("maxArea", "Parameters", 300)
 cv2.createTrackbar("marginOfError", "Parameters", 0, 10, errorMargin)
+cv2.setTrackbarPos("marginOfError", "Parameters", 1)
 
 
 while(True):
@@ -79,14 +84,18 @@ while(True):
 		if maxA > w * h > minA and x!= 0 and y != 0:
 			cv2.rectangle(frame, (int(x), int(y)), (int(x+w), int(y+h)), (0,0,255), thickness=10, lineType=cv2.LINE_8)
 			cv2.circle(frame, (int(x)+int(w/2), int(y)+int(h/2)), 10, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
+			#base
 			if len(approx) == 4:
 				points[1] = (int(x)+int(w/2), int(y)+int(h/2))
+			#tip
 			if len(approx) == 3:
 				points[0] = (int(x)+int(w/2), int(y)+int(h/2))
 		
 	if (points[0] and points[1]):
 		cv2.line(frame, points[0], points[1], (255, 0, 0), thickness=3)
-		requests.post("http://127.0.0.1:8000/base", json = {points[0][0] : points[0][1], points[1][0] : points[1][1]})
+		# requests.post("http://127.0.0.1:8000/base", json = {"base" : {points[1][0] : points[1][1]}, "tip" : {points[0][0] : points[0][1]}})
+		#jsonify('{"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}}')
+		requests.post("http://127.0.0.1:8000/base", json = {"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}})
  
 	cv2.imshow('frame', frame)
 	cv2.imshow('thresh', thresh)
