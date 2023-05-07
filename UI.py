@@ -35,11 +35,13 @@ mainMenu.fill((255, 255, 255))
 sunnyFontS = pygame.font.Font("assets/SunnySunday.ttf", 12)
 sunnyFontM = pygame.font.Font("assets/SunnySunday.ttf", 24)
 sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 56)
+sunnyFontXL = pygame.font.Font("assets/SunnySunday.ttf", 72)
 
 # Background
 # global background
 background = pygame.image.load("assets/background2.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+
 
 
 
@@ -50,6 +52,12 @@ button2Area = mainMenu.subsurface((0, 385, 960, 100))
 button3Area = mainMenu.subsurface((0, 575, 960, 100))
 # global background
 mainMenu.blit(background, (0,0))
+
+titleText = sunnyFontXL.render("[TITLE]", True, (77, 84, 114))
+titleTextRect = titleText.get_rect()
+titleTextRect.center = (WIDTH/2, 100)
+mainMenu.blit(titleText, titleTextRect)
+
 
 button1Cap = button1Area.copy()
 button2Cap = button2Area.copy()
@@ -101,6 +109,15 @@ button3Rect = pygame.Rect(button3X, button3Y, button3W, button3H)
 # button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
 # mainMenu.blit(button3Img, (button3Rect))
 pygame.draw.rect(mainMenu, (227, 255, 230), button3Rect, 50, 20)
+
+aboutX = 325
+aboutText = sunnyFontL.render("ABOUT US", True, (77, 84, 114))
+aboutTextRect = aboutText.get_rect()
+aboutTextRect.center = (aboutX, 625)
+mainMenu.blit(aboutText, aboutTextRect)
+
+
+
 
 screen.blit(mainMenu, (0,0))
 
@@ -246,10 +263,16 @@ while running:
                 button3Hover = True
                 while button3W < 600:
                     button3W += 1
+                    aboutX += 1
                     # button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
                     # mainMenu.blit(button3Img, (button3X, button3Y))
                     pygame.draw.rect(mainMenu, (227, 255, 230), (button3X, button3Y, button3W, button3H), 50, 20)
                     screen.blit(mainMenu, (0,0))
+
+                    aboutTextRect.center = (aboutX, 505)
+                    mainMenu.blit(aboutText, aboutTextRect)
+                    screen.blit(mainMenu, (0,0))
+
                     pygame.display.flip()
                     pygame.time.wait(2)
 
