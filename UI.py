@@ -36,12 +36,35 @@ sunnyFontS = pygame.font.Font("assets/SunnySunday.ttf", 12)
 sunnyFontM = pygame.font.Font("assets/SunnySunday.ttf", 24)
 sunnyFontL = pygame.font.Font("assets/SunnySunday.ttf", 56)
 
-
 # Background
-
 background = pygame.image.load("assets/background2.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 mainMenu.blit(background, (0,0))
+
+# Button 1
+button1Rect = pygame.Rect(0, 195, 550, 100)
+button1Img = pygame.image.load("assets/button1b.png")
+button1Img = pygame.transform.scale(button1Img, (550, 100))
+mainMenu.blit(button1Img, (button1Rect))
+
+
+# Button 2
+button2X, button2Y = 410, 385
+button2W, button2H = 550, 100
+button2Rect = pygame.Rect(button2X, button2Y, button2W, button2H)
+button2Img = pygame.image.load("assets/button3.png")
+button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
+mainMenu.blit(button2Img, (button2Rect))
+cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
+cameraTextRect = cameraText.get_rect()
+cameraTextRect.center = (550, 435)
+mainMenu.blit(cameraText, cameraTextRect)
+
+# Button 3
+button3Rect = pygame.Rect(0, 575, 550, 100)
+button3Img = pygame.image.load("assets/button2a.png")
+button3Img = pygame.transform.scale(button3Img, (550, 100))
+mainMenu.blit(button3Img, (button3Rect))
 
 # Camera Icon
 # cameraRect = pygame.Rect(10, HEIGHT - 110, 100, 100)
@@ -55,29 +78,6 @@ mainMenu.blit(background, (0,0))
 # githubIcon = pygame.transform.scale(githubIcon, (30, 30))
 # githubRect = pygame.Rect(WIDTH - 40, HEIGHT - 40, 30, 30)
 # mainMenu.blit(githubIcon, (githubRect))
-
-# Button 1
-button1Rect = pygame.Rect(0, 150, 550, 100)
-button1Img = pygame.image.load("assets/button1b.png")
-button1Img = pygame.transform.scale(button1Img, (550, 100))
-mainMenu.blit(button1Img, (button1Rect))
-
-
-# Button 2
-button2Rect = pygame.Rect(410, 300, 550, 100)
-button2Img = pygame.image.load("assets/button3.png")
-button2Img = pygame.transform.scale(button2Img, (550, 100))
-mainMenu.blit(button2Img, (button2Rect))
-cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
-cameraTextRect = cameraText.get_rect()
-cameraTextRect.center = (550, 350)
-mainMenu.blit(cameraText, cameraTextRect)
-
-# Button 3
-button3Rect = pygame.Rect(0, 450, 550, 100)
-button3Img = pygame.image.load("assets/button2a.png")
-button3Img = pygame.transform.scale(button3Img, (550, 100))
-mainMenu.blit(button3Img, (button3Rect))
 
 
 # Info page
@@ -105,6 +105,8 @@ while running:
             # if githubRect.collidepoint(evt.pos):
             #     if camOn == False:
             #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
+            if button3Rect.collidepoint(evt.pos):
+                sys.exit()
 
         if evt.type == pygame.KEYDOWN:
             if evt.key == pygame.K_ESCAPE:
@@ -117,14 +119,68 @@ while running:
                 else:
                     selected = "menu"
 
-    
+    mx, my = pygame.mouse.get_pos()
+    mb = pygame.mouse.get_pressed()
+    # Button 2
 
 
 
 
+
+
+### MENU ###
     if selected == "menu":
+        # Background
+        if not button2Rect.collidepoint(mx, my) and mb[0] == 0:
+            background = pygame.image.load("assets/background2.png")
+            background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+            mainMenu.blit(background, (0,0))
+            # Button 1
+            button1Rect = pygame.Rect(0, 195, 550, 100)
+            button1Img = pygame.image.load("assets/button1b.png")
+            button1Img = pygame.transform.scale(button1Img, (550, 100))
+            mainMenu.blit(button1Img, (button1Rect))
 
-        screen.blit(mainMenu, (0,0))
+
+            # Button 2
+            button2X, button2Y = 410, 385
+            button2W, button2H = 550, 100
+            button2Rect = pygame.Rect(button2X, button2Y, button2W, button2H)
+            button2Img = pygame.image.load("assets/button3.png")
+            button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
+            mainMenu.blit(button2Img, (button2Rect))
+            cameraText = sunnyFontL.render("CAMERA!", True, (255, 255, 255))
+            cameraTextRect = cameraText.get_rect()
+            cameraTextX, cameraTextY = 550, 435
+            cameraTextRect.center = (cameraTextX, cameraTextY)
+            mainMenu.blit(cameraText, cameraTextRect)
+
+            # Button 3
+            button3Rect = pygame.Rect(0, 575, 550, 100)
+            button3Img = pygame.image.load("assets/button2a.png")
+            button3Img = pygame.transform.scale(button3Img, (550, 100))
+            mainMenu.blit(button3Img, (button3Rect))
+
+            
+            screen.blit(mainMenu, (0,0))
+
+        if button2Rect.collidepoint(mx, my):
+            if mb[0] == 0:
+                while button2W < 600:
+                    button2X -= 1
+                    button2W += 1
+                    cameraTextX -= 1
+                    cameraTextRect.center = (cameraTextX, cameraTextY)
+                    button2Img = pygame.transform.scale(button2Img, (button2W, button2H))
+                    mainMenu.blit(button2Img, (button2X, button2Y))
+                    mainMenu.blit(cameraText, cameraTextRect)
+                    screen.blit(mainMenu, (0,0))
+                    pygame.display.flip()
+                    pygame.time.wait(2)
+
+
+
+            
 
     # if selected == "info":
 
@@ -137,8 +193,6 @@ while running:
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
 
     pygame.display.flip()
-
-
 
 
 
