@@ -92,6 +92,11 @@ infoPage.blit(background, (0,0))
 selected = "menu"
 
 
+def cursor(x, y):
+    pygame.draw.line(screen, (255, 0, 0), (x-5, y), (x+5, y), 1)
+    pygame.draw.line(screen, (255, 0, 0), (x, y - 5), (x, y + 5), 1)
+
+
 
 # Main loop
 running = True
@@ -107,6 +112,9 @@ while running:
             #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
             if button3Rect.collidepoint(evt.pos):
                 sys.exit()
+            
+            if selected == "camera":
+                print(mx, my)
 
         if evt.type == pygame.KEYDOWN:
             if evt.key == pygame.K_ESCAPE:
@@ -130,6 +138,7 @@ while running:
 
 ### MENU ###
     if selected == "menu":
+        pygame.mouse.set_visible(True)
         # Background
         if not button2Rect.collidepoint(mx, my) and mb[0] == 0:
             background = pygame.image.load("assets/background2.png")
@@ -191,7 +200,9 @@ while running:
         img = webcam.get_image()
         img = pygame.transform.flip(img, True, False)
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
+        pygame.mouse.set_visible(False)
+        cursor(mx, my)
+
+
 
     pygame.display.flip()
-
-
