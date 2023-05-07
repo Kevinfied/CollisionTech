@@ -1,14 +1,18 @@
 Contributors
 
-Noah Levy
-Discord: creeper345#8287
-Github: ThePillowCat
+Noah Levy <br />
+Discord: creeper345#8287 <br />
+Github: ThePillowCat <br />
 
-Hello, I'm Noah (he/him). I enjoy doing competitive programming and main c++ bc why not. I enjoy taking walks, sleeping, watching movies, and learning about new things in the STEM field. Super excited for MH this year. 
+Hello, I'm Noah (he/him). I enjoy doing competitive programming and main c++ bc why not. I enjoy taking walks, sleeping, watching movies, and learning about new things in the STEM field. Super excited for MH this year. <br />
+<br />
+<br />
 
-Raymond Wu
-Discord: Raymond#7218
-Github: Raymond131
+
+Raymond Wu <br />
+Discord: Raymond#7218 <br />
+Github: Raymond131 <br />
+
 
 
 
