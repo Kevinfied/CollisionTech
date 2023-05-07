@@ -42,9 +42,11 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 mainMenu.blit(background, (0,0))
 
 # Button 1
-button1Rect = pygame.Rect(0, 195, 550, 100)
+button1X, button1Y = 0, 195
+button1W, button1H = 550, 100
+button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
 button1Img = pygame.image.load("assets/button1b.png")
-button1Img = pygame.transform.scale(button1Img, (550, 100))
+button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
 mainMenu.blit(button1Img, (button1Rect))
 
 
@@ -61,9 +63,12 @@ cameraTextRect.center = (550, 435)
 mainMenu.blit(cameraText, cameraTextRect)
 
 # Button 3
-button3Rect = pygame.Rect(0, 575, 550, 100)
+button3X, button3Y = 0, 575
+button3W, button3H = 550, 100
+
+button3Rect = pygame.Rect(button3X, button3Y, button3W, button3H)
 button3Img = pygame.image.load("assets/button2a.png")
-button3Img = pygame.transform.scale(button3Img, (550, 100))
+button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
 mainMenu.blit(button3Img, (button3Rect))
 
 # Camera Icon
@@ -92,6 +97,11 @@ infoPage.blit(background, (0,0))
 selected = "menu"
 
 
+def cursor(x, y):
+    pygame.draw.line(screen, (255, 0, 0), (x-5, y), (x+5, y), 1)
+    pygame.draw.line(screen, (255, 0, 0), (x, y - 5), (x, y + 5), 1)
+
+
 
 # Main loop
 running = True
@@ -107,6 +117,9 @@ while running:
             #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
             if button3Rect.collidepoint(evt.pos):
                 sys.exit()
+            
+            if selected == "camera":
+                print(mx, my)
 
         if evt.type == pygame.KEYDOWN:
             if evt.key == pygame.K_ESCAPE:
@@ -130,18 +143,25 @@ while running:
 
 ### MENU ###
     if selected == "menu":
+        pygame.mouse.set_visible(True)
         # Background
         if not button2Rect.collidepoint(mx, my) and mb[0] == 0:
             background = pygame.image.load("assets/background2.png")
             background = pygame.transform.scale(background, (WIDTH, HEIGHT))
             mainMenu.blit(background, (0,0))
+
+
             # Button 1
-            button1Rect = pygame.Rect(0, 195, 550, 100)
+            button1X, button1Y = 0, 195
+            button1W, button1H = 550, 100
+
+            button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
             button1Img = pygame.image.load("assets/button1b.png")
-            button1Img = pygame.transform.scale(button1Img, (550, 100))
+            button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
             mainMenu.blit(button1Img, (button1Rect))
 
 
+            screen.blit(mainMenu, (0,0))
             # Button 2
             button2X, button2Y = 410, 385
             button2W, button2H = 550, 100
@@ -178,9 +198,35 @@ while running:
                     pygame.display.flip()
                     pygame.time.wait(2)
 
+        # if not button1Rect.collidepoint(mx, my) and mb[0] == 0:
+        #     background = pygame.image.load("assets/background2.png")
+        #     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+        #     mainMenu.blit(background, (0,0))
+        #     # Button 1
+        #     button1X, button1Y = 0, 195
+        #     button1W, button1H = 550, 100
+
+        #     button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
+        #     button1Img = pygame.image.load("assets/button1b.png")
+        #     button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
+        #     mainMenu.blit(button1Img, (button1Rect))
 
 
-            
+        #     screen.blit(mainMenu, (0,0))
+
+        if button1Rect.collidepoint(mx, my):
+            if mb[0] == 0:
+                while button1W < 600:
+                    button1X -= 1
+                    button1W += 1
+                    button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
+                    mainMenu.blit(button1Img, (button1X, button1Y))
+                    screen.blit(mainMenu, (0,0))
+                    pygame.display.flip()
+                    pygame.time.wait(2)
+
+
+      
 
     # if selected == "info":
 
@@ -191,7 +237,8 @@ while running:
         img = webcam.get_image()
         img = pygame.transform.flip(img, True, False)
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
+        pygame.mouse.set_visible(False)
+        cursor(mx, my)
+
 
     pygame.display.flip()
-
-
