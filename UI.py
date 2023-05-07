@@ -144,12 +144,6 @@ while running:
             background = pygame.image.load("assets/background2.png")
             background = pygame.transform.scale(background, (WIDTH, HEIGHT))
             mainMenu.blit(background, (0,0))
-            # Button 1
-            button1Rect = pygame.Rect(0, 195, 550, 100)
-            button1Img = pygame.image.load("assets/button1b.png")
-            button1Img = pygame.transform.scale(button1Img, (550, 100))
-            mainMenu.blit(button1Img, (button1Rect))
-
 
             # Button 2
             button2X, button2Y = 410, 385
@@ -187,6 +181,29 @@ while running:
                     pygame.display.flip()
                     pygame.time.wait(2)
 
+        if not button1Rect.collidepoint(mx, my) and mb[0] == 0:
+            background = pygame.image.load("assets/background2.png")
+            background = pygame.transform.scale(background, (WIDTH, HEIGHT))
+            mainMenu.blit(background, (0,0))
+            # Button 1
+            button1Rect = pygame.Rect(0, 195, 550, 100)
+            button1Img = pygame.image.load("assets/button1b.png")
+            button1Img = pygame.transform.scale(button1Img, (550, 100))
+            mainMenu.blit(button1Img, (button1Rect))
+
+
+            screen.blit(mainMenu, (0,0))
+
+        if button1Rect.collidepoint(mx, my):
+            if mb[0] == 0:
+                while button1W < 600:
+                    button1X -= 1
+                    button1W += 1
+                    button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
+                    mainMenu.blit(button1Img, (button1X, button1Y))
+                    screen.blit(mainMenu, (0,0))
+                    pygame.display.flip()
+                    pygame.time.wait(2)
 
 
             
@@ -202,7 +219,6 @@ while running:
         img = pygame.transform.scale(img, (WIDTH, HEIGHT))
         pygame.mouse.set_visible(False)
         cursor(mx, my)
-
 
 
     pygame.display.flip()
