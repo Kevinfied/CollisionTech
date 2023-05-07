@@ -81,7 +81,7 @@ pygame.draw.rect(mainMenu, (216, 246, 255), button2Rect, 50, 20)
 
 global cameraText, cameraTextRect, cameraTextX, cameraTextY
 cameraTextX, cameraTextY = 550, 435
-cameraText = sunnyFontL.render("CAMERA!", True, (49, 109, 234))
+cameraText = sunnyFontL.render("START", True, (77, 84, 114))
 cameraTextRect = cameraText.get_rect()
 cameraTextRect.center = (cameraTextX, cameraTextY)
 mainMenu.blit(cameraText, cameraTextRect)
@@ -225,28 +225,44 @@ while running:
                     pygame.display.flip()
                     pygame.time.wait(2)
         
+        if button3Rect.collidepoint(mx, my):
+            if mb[0] == 0:
+                button3Hover = True
+                while button3W < 600:
+                    button3W += 1
+                    # button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
+                    # mainMenu.blit(button3Img, (button3X, button3Y))
+                    pygame.draw.rect(mainMenu, (227, 255, 230), (button3X, button3Y, button3W, button3H), 50, 20)
+                    screen.blit(mainMenu, (0,0))
+                    pygame.display.flip()
+                    pygame.time.wait(2)
+
+        
         if button1Hover == False:
+            button1W = 550
             mainMenu.blit(button1Cap, (0,195))
             pygame.draw.rect(mainMenu, (238, 225, 255), (0, 195, 550, 100), 50, 20)
 
         if button2Hover == False:
+            button2W = 550
+            button2X = 410
             mainMenu.blit(button2Cap, (0, 385))
             pygame.draw.rect(mainMenu, (216, 246, 255), (410, 385, 550, 100), 50, 20)
+            cameraTextX = 550
+            cameraTextRect.center = (cameraTextX, cameraTextY)
+            mainMenu.blit(cameraText, cameraTextRect)
+
+
         
         if button3Hover == False:
+            button3W = 550
             mainMenu.blit(button3Cap, (0, 575))
             pygame.draw.rect(mainMenu, (227, 255, 230), (0, 575, 550, 100), 50, 20)
 
-
-        print(button1Hover)
         screen.blit(mainMenu, (0,0))
 
 
         # Reset button sizes
-        button1W = 550
-        button2W = 550
-        button3W = 550
-        button2X = 410
         button1Hover = False
         button2Hover = False
         button3Hover = False
