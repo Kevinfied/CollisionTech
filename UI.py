@@ -53,7 +53,7 @@ button3Area = mainMenu.subsurface((0, 575, 960, 100))
 # global background
 mainMenu.blit(background, (0,0))
 
-titleText = sunnyFontXL.render("[TITLE]", True, (77, 84, 114))
+titleText = sunnyFontXL.render("Testing Technologies", True, (77, 84, 114))
 titleTextRect = titleText.get_rect()
 titleTextRect.center = (WIDTH/2, 100)
 mainMenu.blit(titleText, titleTextRect)
@@ -145,9 +145,6 @@ instructionsPage.blit(background, (0,0))
 
 
 
-# Info page
-infoPage = pygame.Surface((WIDTH, HEIGHT))
-infoPage.blit(background, (0,0))
 
 
 
@@ -163,6 +160,30 @@ button3Hover = False
 def cursor(x, y):
     pygame.draw.line(screen, (255, 0, 0), (x-5, y), (x+5, y), 1)
     pygame.draw.line(screen, (255, 0, 0), (x, y - 5), (x, y + 5), 1)
+
+# Project Info Page
+infoPage = pygame.Surface((WIDTH, HEIGHT))
+infoPage.blit(background, (0,0))
+line1 = sunnyFontM.render("The point of this project is to demonstrate the advantages and disadvantages of", True, (77, 84, 114))
+line2 = sunnyFontM.render("2D recognition and how it can be used to warn drivers about obstacles or other", True, (77, 84, 114))
+line3 = sunnyFontM.render("dangers. We created a prototype model to test this idea in the real world and", True, (77, 84, 114))
+line4 = sunnyFontM.render("identify areas for improvement. Since this is simply a proof of concept, we", True, (77, 84, 114))
+line5 = sunnyFontM.render("manually adjust the OpenCV thresholds to account for specific lighting", True, (77, 84, 114))
+line6 = sunnyFontM.render("conditions. We hope that this project will serve as a stepping stone to help", True, (77, 84, 114))
+line7 = sunnyFontM.render("us improve when testing other ideas. Projects like these also help educate", True, (77, 84, 114))
+line8 = sunnyFontM.render("the public about new safety concepts and encourage them to think about ", True, (77, 84, 114))
+line9 = sunnyFontM.render("their thoughts about these concepts", True, (77, 84, 114))
+infoPage.blit(line1, (50, 100))
+infoPage.blit(line2, (50, 150))
+infoPage.blit(line3, (50, 200))
+infoPage.blit(line4, (50, 250))
+infoPage.blit(line5, (50, 300))
+infoPage.blit(line6, (50, 350))
+infoPage.blit(line7, (50, 400))
+infoPage.blit(line8, (50, 450))
+infoPage.blit(line9, (50, 500))
+
+
 
 
 
@@ -182,6 +203,12 @@ while running:
                 #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
                 # if button3Rect.collidepoint(evt.pos):
                 #     sys.exit()
+            
+                if button1Rect.collidepoint(evt.pos):
+                    selected = "info"
+
+                if button3Rect.collidepoint(evt.pos):
+                    webbrowser.open('https://github.com/Kevinfied/EpicMHProject/blob/main/README.md')
             elif selected == "camera":
                 print(mx, my)
                 sys.exit()
@@ -269,7 +296,7 @@ while running:
                     pygame.draw.rect(mainMenu, (227, 255, 230), (button3X, button3Y, button3W, button3H), 50, 20)
                     screen.blit(mainMenu, (0,0))
 
-                    aboutTextRect.center = (aboutX, 505)
+                    aboutTextRect.center = (aboutX, 625)
                     mainMenu.blit(aboutText, aboutTextRect)
                     screen.blit(mainMenu, (0,0))
 
@@ -298,8 +325,11 @@ while running:
         
         if button3Hover == False:
             button3W = 550
+            aboutX = 325
+            aboutTextRect.center = (aboutX, 625)
             mainMenu.blit(button3Cap, (0, 575))
             pygame.draw.rect(mainMenu, (227, 255, 230), (0, 575, 550, 100), 50, 20)
+            mainMenu.blit(aboutText, aboutTextRect)
 
         screen.blit(mainMenu, (0,0))
 
@@ -320,12 +350,16 @@ while running:
 
 
     if selected == "camera":
-        screen.blit(img, (0,0))
-        img = webcam.get_image()
-        img = pygame.transform.flip(img, True, False)
-        img = pygame.transform.scale(img, (WIDTH, HEIGHT))
-        pygame.mouse.set_visible(False)
-        cursor(mx, my)
+        # screen.blit(img, (0,0))
+        # img = webcam.get_image()
+        # img = pygame.transform.flip(img, True, False)
+        # img = pygame.transform.scale(img, (WIDTH, HEIGHT))
+        # pygame.mouse.set_visible(False)
+        # cursor(mx, my)
+        sys.exit()
+    
+    if selected == "info":
+        screen.blit(infoPage, (0,0))
 
 
     pygame.display.flip()
