@@ -5,23 +5,13 @@ UI for the project
 
 # Is this working
 import webbrowser
-import pygame.camera
-import pygame.image
 import sys
 import pygame
 import vision
 
 # initialization
-pygame.camera.init()
 pygame.font.init()
 
-
-cameraList = pygame.camera.list_cameras()
-webcam = pygame.camera.Camera(cameraList[0])
-webcam.start()
-
-# grab first frame
-img = webcam.get_image()
 
 WIDTH = 960
 HEIGHT = 720
