@@ -44,7 +44,6 @@ mainMenu.blit(background, (0,0))
 # Button 1
 button1X, button1Y = 0, 195
 button1W, button1H = 550, 100
-
 button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
 button1Img = pygame.image.load("assets/button1b.png")
 button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
@@ -192,9 +191,12 @@ while running:
             background = pygame.transform.scale(background, (WIDTH, HEIGHT))
             mainMenu.blit(background, (0,0))
             # Button 1
-            button1Rect = pygame.Rect(0, 195, 550, 100)
+            button1X, button1Y = 0, 195
+            button1W, button1H = 550, 100
+
+            button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
             button1Img = pygame.image.load("assets/button1b.png")
-            button1Img = pygame.transform.scale(button1Img, (550, 100))
+            button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
             mainMenu.blit(button1Img, (button1Rect))
 
 
