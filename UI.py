@@ -9,6 +9,7 @@ import pygame.camera
 import pygame.image
 import sys
 import pygame
+import vision
 
 # initialization
 pygame.camera.init()
@@ -197,7 +198,7 @@ while running:
 
             if selected == "menu":
                 if button2Rect.collidepoint(evt.pos):
-                    selected = "camera"
+                    running = False
                 # if githubRect.collidepoint(evt.pos):
                 #     if camOn == False:
                 #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
@@ -209,9 +210,9 @@ while running:
 
                 if button3Rect.collidepoint(evt.pos):
                     webbrowser.open('https://github.com/Kevinfied/EpicMHProject/blob/main/README.md')
-            elif selected == "camera":
-                print(mx, my)
-                sys.exit()
+            # elif selected == "camera":
+            #     running = False
+                
             #               
 
 
@@ -363,3 +364,6 @@ while running:
 
 
     pygame.display.flip()
+
+print("Vision")
+vision.run()
