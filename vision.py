@@ -96,8 +96,10 @@ while(True):
 		if maxA > w * h > minA and x!= 0 and y != 0:
 			cv2.rectangle(frame, (int(x), int(y)), (int(x+w), int(y+h)), (0,0,255), thickness=10, lineType=cv2.LINE_8)
 			cv2.circle(frame, (int(x)+int(w/2), int(y)+int(h/2)), 10, (0, 255, 0), thickness=5, lineType = cv2.LINE_AA)
-			#base
+			
+			#use to get center point of robot
 			if len(approx) == 4:
+				print(approx[0][0])
 				if points[0] == 0:
 					points[0] = (int(x)+int(w/2), int(y)+int(h/2))
 				elif points[1] == 0:
@@ -130,7 +132,7 @@ while(True):
 				winsound.Beep(freq,dur)
 			minDistSqr = min(distSqr,lastDistSqr)
 			lastDistSqr = distSqr
-		print(round(minDistSqr,2))
+		# print(round(minDistSqr,2))
 				
 		# requests.post("http://127.0.0.1:8000/base", json = {"base" : {points[1][0] : points[1][1]}, "tip" : {points[0][0] : points[0][1]}})
 		#jsonify('{"base" : {"x" : points[1][0], "y" : points[1][1]}, "tip" : {"x" : points[0][0], "y" : points[0][1]}}')
@@ -142,12 +144,6 @@ while(True):
 	k = cv2.waitKey(1)
 	if k == ord('q'):
 		break
-	if k == ord('n'):
-		counter-=1
-		print(counter)
-	if k == ord('m'):
-		counter+=1
-		print(counter)
 
 #Release video object
 vid.release()
