@@ -161,6 +161,8 @@ while running:
             mainMenu.blit(button1Img, (button1Rect))
 
 
+
+
             screen.blit(mainMenu, (0,0))
             # Button 2
             button2X, button2Y = 410, 385
