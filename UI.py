@@ -42,9 +42,12 @@ background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 mainMenu.blit(background, (0,0))
 
 # Button 1
-button1Rect = pygame.Rect(0, 195, 550, 100)
+button1X, button1Y = 0, 195
+button1W, button1H = 550, 100
+
+button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
 button1Img = pygame.image.load("assets/button1b.png")
-button1Img = pygame.transform.scale(button1Img, (550, 100))
+button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
 mainMenu.blit(button1Img, (button1Rect))
 
 
@@ -61,9 +64,12 @@ cameraTextRect.center = (550, 435)
 mainMenu.blit(cameraText, cameraTextRect)
 
 # Button 3
-button3Rect = pygame.Rect(0, 575, 550, 100)
+button3X, button3Y = 0, 575
+button3W, button3H = 550, 100
+
+button3Rect = pygame.Rect(button3X, button3Y, button3W, button3H)
 button3Img = pygame.image.load("assets/button2a.png")
-button3Img = pygame.transform.scale(button3Img, (550, 100))
+button3Img = pygame.transform.scale(button3Img, (button3W, button3H))
 mainMenu.blit(button3Img, (button3Rect))
 
 # Camera Icon
@@ -206,7 +212,7 @@ while running:
                     pygame.time.wait(2)
 
 
-            
+      
 
     # if selected == "info":
 
