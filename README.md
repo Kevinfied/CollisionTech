@@ -1,4 +1,5 @@
-Contributors
+CONTRIBUTORS <br />
+<br />
 
 Noah Levy <br />
 Discord: creeper345#8287 <br />
