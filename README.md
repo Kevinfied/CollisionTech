@@ -13,7 +13,7 @@ Hello, I'm Noah (he/him). I enjoy doing competitive programming and main c++ bc 
 Raymond Wu <br />
 Discord: Raymond#7218 <br />
 Github: Raymond131 <br />
-
+Hi! I'm Raymond Wu. I like arduino and robotics and I'm also interested in computer vision. It's my first hackathon this time and I'm very excited. My best skill is probably construction. 
 <br />
 <br />
 
