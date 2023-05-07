@@ -65,7 +65,11 @@ button1Rect = pygame.Rect(button1X, button1Y, button1W, button1H)
 # button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
 # mainMenu.blit(button1Img, (button1Rect))
 pygame.draw.rect(mainMenu, (238, 225, 255), button1Rect, 50, 20)
-
+instructionsX = 325
+instructionsText = sunnyFontL.render("INTRODUCTION", True, (77, 84, 114))
+instructionsTextRect = instructionsText.get_rect()
+instructionsTextRect.center = (instructionsX, 245)
+mainMenu.blit(instructionsText, instructionsTextRect)
 
 
 
@@ -117,7 +121,9 @@ screen.blit(mainMenu, (0,0))
 # Button area captures
 
 
-
+# Instructions Page
+instructionsPage = pygame.Surface((WIDTH, HEIGHT))
+instructionsPage.blit(background, (0,0))
 
 
 
@@ -150,15 +156,19 @@ while running:
         if evt.type == pygame.QUIT:
             sys.exit()
         if evt.type == pygame.MOUSEBUTTONDOWN:
+
             if selected == "menu":
                 if button2Rect.collidepoint(evt.pos):
                     selected = "camera"
                 # if githubRect.collidepoint(evt.pos):
                 #     if camOn == False:
                 #         webbrowser.open('https://github.com/Kevinfied/EpicMHProject/tree/main')
-                if button3Rect.collidepoint(evt.pos):
-                    sys.exit()
-            
+                # if button3Rect.collidepoint(evt.pos):
+                #     sys.exit()
+            elif selected == "camera":
+                print(mx, my)
+                sys.exit()
+            #               
 
 
             if selected == "camera":
@@ -218,9 +228,15 @@ while running:
                 button1Hover = True
                 while button1W < 600:
                     button1W += 1
+                    instructionsX += 1
                     # button1Img = pygame.transform.scale(button1Img, (button1W, button1H))
                     # mainMenu.blit(button1Img, (button1X, button1Y))
                     pygame.draw.rect(mainMenu, (238, 225, 255), (button1X, button1Y, button1W, button1H), 50, 20)
+                    screen.blit(mainMenu, (0,0))
+                    
+                    instructionsTextRect.center = (instructionsX, 245)
+                    mainMenu.blit(instructionsText, instructionsTextRect)
+
                     screen.blit(mainMenu, (0,0))
                     pygame.display.flip()
                     pygame.time.wait(2)
@@ -242,6 +258,9 @@ while running:
             button1W = 550
             mainMenu.blit(button1Cap, (0,195))
             pygame.draw.rect(mainMenu, (238, 225, 255), (0, 195, 550, 100), 50, 20)
+            instructionsX = 325
+            instructionsTextRect.center = (instructionsX, 245)
+            mainMenu.blit(instructionsText, instructionsTextRect)
 
         if button2Hover == False:
             button2W = 550
