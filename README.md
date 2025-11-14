@@ -1,4 +1,23 @@
-CONTRIBUTORS <br />
+# CollisionTech - Intelligent Collision Detection System
+
+## 📚 Documentation
+
+For comprehensive technical documentation suitable for resumes and portfolios, see:
+- **[PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md)** - Complete technical documentation (650+ lines)
+  - Full codebase analysis and architecture
+  - Component breakdowns with code examples
+  - Algorithms and implementation details
+  - Setup instructions and usage guide
+  
+- **[RESUME_SUMMARY.md](RESUME_SUMMARY.md)** - Resume and interview guide
+  - Bullet points ready for resume
+  - Interview talking points
+  - Technical deep-dive explanations
+  - Portfolio presentation tips
+
+---
+
+## CONTRIBUTORS <br />
 <br />
 
 Noah Levy <br />
